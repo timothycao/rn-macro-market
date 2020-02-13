@@ -2,14 +2,21 @@ import React from 'react';
 import { View, Text, Image, Button, ScrollView, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import Color from '../../constants/Colors';
+
 const SingleProduct = props => {
   const productId = props.navigation.getParam('productId')
   const selectedProduct = useSelector(state => state.products.availableProducts.find(product => product.id === productId))
 
   return (
-    <View>
-      <Text>{selectedProduct.title}</Text>
-    </View>
+    <ScrollView>
+      <Image style={styles.image} source={{uri: selectedProduct.imageUrl}} />
+      <View style={styles.buttonContainer}>
+        <Button color={Color.primary} title="Add To Cart" onPress={() => {}} />
+      </View>
+      <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
+      <Text style={styles.description}>{selectedProduct.description}</Text>
+    </ScrollView>
   )
 };
 
@@ -19,6 +26,26 @@ SingleProduct.navigationOptions = navData => {
   };
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: 300
+  },
+  buttonContainer: {
+    marginVertical: 10,
+    alignItems: 'center'
+  },
+  price: {
+    fontSize: 20,
+    color: 'gray',
+    textAlign: 'center',
+    marginVertical: 20
+  },
+  description: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginHorizontal: 20
+  }
+});
 
 export default SingleProduct;
