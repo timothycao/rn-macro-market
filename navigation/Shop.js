@@ -3,11 +3,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
 
 import ProductsComponent from '../components/shop/Products';
+import SingleProductComponent from '../components/shop/SingleProduct';
 import Colors from '../constants/Colors';
 
 const ProductsNavigator = createStackNavigator(
   {
-    Products: ProductsComponent
+    Products: ProductsComponent,
+    SingleProduct: SingleProductComponent
   },
   {
     defaultNavigationOptions: {

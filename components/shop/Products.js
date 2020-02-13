@@ -10,7 +10,18 @@ const Products = props => {
     <FlatList
       data={products}
       keyExtractor={item => item.id}
-      renderItem={itemData => <Product image={itemData.item.imageUrl} title={itemData.item.title} price={itemData.item.price} onViewDetails={() => {}} onAddToCart={() => {}} />}
+      renderItem={itemData =>
+        <Product
+          image={itemData.item.imageUrl}
+          title={itemData.item.title}
+          price={itemData.item.price}
+          onViewDetails={() => {
+            props.navigation.navigate('SingleProduct', {
+              productId: itemData.item.id,
+              productTitle: itemData.item.title
+            });
+          }}
+          onAddToCart={() => {}} />}
     />
   );
 };
