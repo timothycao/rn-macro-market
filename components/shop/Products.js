@@ -35,14 +35,22 @@ const Products = props => {
 Products.navigationOptions = navData => {
   return {
     headerTitle: 'All Products',
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title='Menu'
+          iconName='md-menu'
+          onPress={() => {navData.navigation.toggleDrawer()}}
+        />
+      </HeaderButtons>
+    ),
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title='Cart'
           iconName='md-cart'
-          onPress={() => {
-            navData.navigation.navigate('Cart')
-          }} />
+          onPress={() => {navData.navigation.navigate('Cart')}}
+        />
       </HeaderButtons>
     )
   }
