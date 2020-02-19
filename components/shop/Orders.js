@@ -1,11 +1,27 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/ui/HeaderButton';
+import OrderItem from './OrderItem';
 
 const Orders = props => {
-  return <Text>ORDERS PLACEHOLDER</Text>
+  const orders = useSelector(state => state.orders.orders);
+
+  return (
+    <FlatList
+      data={orders}
+      keyExtractor={item => item.id}
+      renderItem={itemData => (
+        <OrderItem
+          amount={itemData.item.totalAmount}
+          date={itemData.item.formattedDate}
+          items={itemData.item.items}
+        />
+      )}
+    />
+)
 };
 
 Orders.navigationOptions = navData => {
@@ -24,3 +40,4 @@ Orders.navigationOptions = navData => {
 }
 
 export default Orders;
+

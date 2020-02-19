@@ -48,6 +48,7 @@ const Cart = props => {
             quantity={itemData.item.quantity}
             title={itemData.item.productTitle}
             amount={itemData.item.totalAmount}
+            deletable
             onRemove={() => {
               dispatch(cartActions.removeFromCart(itemData.item.productId));
             }}
