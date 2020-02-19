@@ -1,7 +1,9 @@
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Platform } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 import ProductsComponent from '../components/shop/Products';
 import SingleProductComponent from '../components/shop/SingleProduct';
@@ -29,6 +31,15 @@ const ProductsNavigator = createStackNavigator(
     Cart: CartComponent
   },
   {
+    navigationOptions: {
+      drawerIcon: drawerConfig => (
+        <Ionicons
+          name='md-cart'
+          size={23}
+          color={drawerConfig.tintColor}
+        />
+      )
+    },
     defaultNavigationOptions
   }
 );
@@ -38,6 +49,15 @@ const OrdersNavigator = createStackNavigator(
     Orders: OrdersComponent
   },
   {
+    navigationOptions: {
+      drawerIcon: drawerConfig => (
+        <Ionicons
+          name='md-list'
+          size={23}
+          color={drawerConfig.tintColor}
+        />
+      )
+    },
     defaultNavigationOptions
   }
 );
