@@ -9,6 +9,7 @@ import ProductsComponent from '../components/shop/Products';
 import SingleProductComponent from '../components/shop/SingleProduct';
 import CartComponent from '../components/shop/Cart';
 import OrdersComponent from '../components/shop/Orders';
+import UserProductsComponent from '../components/user/Products';
 import Colors from '../constants/Colors';
 
 const defaultNavigationOptions = {
@@ -62,10 +63,29 @@ const OrdersNavigator = createStackNavigator(
   }
 );
 
+const AdminNavigator = createStackNavigator(
+  {
+    UserProducts: UserProductsComponent
+  },
+  {
+    navigationOptions: {
+      drawerIcon: drawerConfig => (
+        <Ionicons
+          name='md-create'
+          size={23}
+          color={drawerConfig.tintColor}
+        />
+      )
+    },
+    defaultNavigationOptions
+  }
+);
+
 const ShopNavigator = createDrawerNavigator(
   {
     Products: ProductsNavigator,
-    Orders: OrdersNavigator
+    Orders: OrdersNavigator,
+    Admin: AdminNavigator
   },
   {
     contentOptions: {
