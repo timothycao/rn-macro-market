@@ -1,14 +1,16 @@
 import React from 'react';
 import { FlatList, Button } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import Product from '../../components/shop/Product';
 import HeaderButton from '../../components/ui/HeaderButton';
 import Colors from '../../constants/Colors';
+import * as productActions from '../../store/actions/products';
 
 const UserProducts = props => {
   const userProducts = useSelector(state => state.products.userProducts);
+  const dispatch = useDispatch();
 
   return (
     <FlatList
@@ -32,7 +34,7 @@ const UserProducts = props => {
             color={Colors.primary}
             title="Delete"
             onPress={() => {
-
+              dispatch(productActions.deleteProduct(itemData.item.id));
             }}
           />
         </Product>
