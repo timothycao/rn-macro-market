@@ -10,6 +10,7 @@ import SingleProductComponent from '../components/shop/SingleProduct';
 import CartComponent from '../components/shop/Cart';
 import OrdersComponent from '../components/shop/Orders';
 import UserProductsComponent from '../components/user/Products';
+import EditProductComponent from '../components/user/EditProduct';
 import Colors from '../constants/Colors';
 
 const defaultNavigationOptions = {
@@ -65,7 +66,8 @@ const OrdersNavigator = createStackNavigator(
 
 const AdminNavigator = createStackNavigator(
   {
-    UserProducts: UserProductsComponent
+    UserProducts: UserProductsComponent,
+    EditProduct: EditProductComponent
   },
   {
     navigationOptions: {
