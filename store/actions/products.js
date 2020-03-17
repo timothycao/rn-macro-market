@@ -38,7 +38,13 @@ export const fetchProducts = () => {
 }
 
 export const deleteProduct = productId => {
-  return { type: DELETE_PRODUCT, productId: productId };
+  return async dispatch => {
+    await fetch(`https://macro-mkt.firebaseio.com/products/${productId}.json`, {
+      method: 'DELETE'
+    });
+
+    dispatch({ type: DELETE_PRODUCT, productId: productId });
+  };
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
