@@ -7,25 +7,33 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 export const fetchProducts = () => {
   return async dispatch => {
-    const response = await fetch('https://macro-mkt.firebaseio.com/products.json');
+    try {
+      const response = await fetch('https://macro-mkt.firebaseio.com/products.json');
 
-    const data = await response.json();
-    const products = [];
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
 
-    for (const key in data) {
-      products.push(
-        new Product(
-          key,
-          'u1',
-          data[key].title,
-          data[key].imageUrl,
-          data[key].description,
-          data[key].price
-        )
-      );
+      const data = await response.json();
+      const products = [];
+
+      for (const key in data) {
+        products.push(
+          new Product(
+            key,
+            'u1',
+            data[key].title,
+            data[key].imageUrl,
+            data[key].description,
+            data[key].price
+          )
+        );
+      }
+
+      dispatch({type: SET_PRODUCTS, products: products});
+    } catch (error) {
+      throw error;
     }
-
-    dispatch({type: SET_PRODUCTS, products: products});
   };
 }
 
