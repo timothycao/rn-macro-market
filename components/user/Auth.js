@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Button, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView, Button, StyleSheet } from 'react-native';
 
 import Input from '../../components/ui/Input';
 import Card from '../../components/ui/Card';
@@ -12,6 +12,7 @@ const Auth = props => {
       keyboardVerticalOffset={50}
       style={styles.screen}
     >
+      <Text style={styles.title}>Macro Market</Text>
       <Card style={styles.authContainer}>
         <ScrollView>
           <Input
@@ -37,8 +38,12 @@ const Auth = props => {
             onChangeInput={() => {}}
             initialValue=""
           />
-          <Button title="Login" color={Colors.primary} onPress={() => {}} />
-          <Button title="New Account" onPress={() => {}} />
+          <View style={styles.buttonContainer}>
+            <Button title="Login" color={Colors.primary} onPress={() => {}} />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button title="New Account" onPress={() => {}} />
+          </View>
         </ScrollView>
       </Card>
     </KeyboardAvoidingView>
@@ -46,20 +51,30 @@ const Auth = props => {
 };
 
 Auth.navigationOptions = {
-  headerTitle: 'Login'
+  headerShown: false
 };
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: Colors.primary
+  },
+  title: {
+    fontSize: 30,
+    fontFamily: 'open-sans-bold',
+    color: Colors.secondary,
+    margin: 20
   },
   authContainer: {
     width: '80%',
     maxWidth: 400,
     maxHeight: 400,
     padding: 20
+  },
+  buttonContainer: {
+    marginTop: 10
   }
 });
 
