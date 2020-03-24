@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useState, useReducer, useCallback } from 'react';
 import { View, Text, ScrollView, KeyboardAvoidingView, Button, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -33,6 +33,7 @@ const formReducer = (state, action) => {
 };
 
 const Auth = props => {
+  const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -47,13 +48,20 @@ const Auth = props => {
     isFormValid: false
   });
 
-  const signupHandler = () => {
-    dispatch(
-      authActions.signup(
+  const authHandler = () => {
+    let action;
+    if (isSignup) {
+      action = authActions.signup(
+          formState.inputValues.email,
+          formState.inputValues.password
+      );
+    } else {
+      action = authActions.login(
         formState.inputValues.email,
         formState.inputValues.password
-      )
-    );
+      );
+    }
+    dispatch(action);
   };
 
   const changeInputHandler = useCallback((inputIdentifier, inputValue, isInputValid) => {
@@ -98,10 +106,12 @@ const Auth = props => {
             initialValue=""
           />
           <View style={styles.buttonContainer}>
-            <Button title="Login" color={Colors.primary} onPress={() => {}} />
+            <Button title={isSignup ? 'Sign Up' : 'Login'} color={Colors.primary} onPress={authHandler} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="New Account" onPress={signupHandler} />
+            <Button title={isSignup ? 'Existing User' : 'New Account'} onPress={() => {
+              setIsSignup(prevState => !prevState);
+            }} />
           </View>
         </ScrollView>
       </Card>
