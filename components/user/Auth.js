@@ -1,5 +1,5 @@
-import React, { useState, useReducer, useCallback } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView, Button, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useReducer, useCallback } from 'react';
+import { View, Text, ScrollView, KeyboardAvoidingView, Button, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import Input from '../../components/ui/Input';
@@ -33,6 +33,8 @@ const formReducer = (state, action) => {
 };
 
 const Auth = props => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
 
@@ -48,7 +50,13 @@ const Auth = props => {
     isFormValid: false
   });
 
-  const authHandler = () => {
+  useEffect(() => {
+    if (error) {
+      Alert.alert('Error', error, [{ text: 'Okay' }]);
+    }
+  }, [error]);
+
+  const authHandler = async () => {
     let action;
     if (isSignup) {
       action = authActions.signup(
@@ -61,7 +69,14 @@ const Auth = props => {
         formState.inputValues.password
       );
     }
-    dispatch(action);
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(action);
+    } catch (error) {
+      setError(err.message);
+    }
+    setIsLoading(false);
   };
 
   const changeInputHandler = useCallback((inputIdentifier, inputValue, isInputValid) => {
@@ -106,7 +121,15 @@ const Auth = props => {
             initialValue=""
           />
           <View style={styles.buttonContainer}>
-            <Button title={isSignup ? 'Sign Up' : 'Login'} color={Colors.primary} onPress={authHandler} />
+            {isLoading ? (
+              <ActivityIndicator size="small" color={Colors.primary} />
+            ) : (
+              <Button
+                title={isSignup ? 'Sign Up' : 'Login'}
+                color={Colors.primary}
+                onPress={authHandler}
+              />
+            )}
           </View>
           <View style={styles.buttonContainer}>
             <Button title={isSignup ? 'Existing User' : 'New Account'} onPress={() => {
