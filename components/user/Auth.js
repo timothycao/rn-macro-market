@@ -73,10 +73,11 @@ const Auth = props => {
     setIsLoading(true);
     try {
       await dispatch(action);
+      props.navigation.navigate('Shop');
     } catch (error) {
       setError(error.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const changeInputHandler = useCallback((inputIdentifier, inputValue, isInputValid) => {
