@@ -74,7 +74,7 @@ const Auth = props => {
     try {
       await dispatch(action);
     } catch (error) {
-      setError(err.message);
+      setError(error.message);
     }
     setIsLoading(false);
   };
