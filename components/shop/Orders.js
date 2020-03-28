@@ -29,7 +29,7 @@ const Orders = props => {
     )
   }
 
-  if (userProducts.length === 0) {
+  if (orders.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>You have no past orders.</Text>
