@@ -12,6 +12,7 @@ import OrdersComponent from '../components/shop/Orders';
 import UserProductsComponent from '../components/user/Products';
 import EditProductComponent from '../components/user/EditProduct';
 import AuthComponent from '../components/user/Auth';
+import StartComponent from '../components/Start';
 import Colors from '../constants/Colors';
 
 const defaultNavigationOptions = {
@@ -102,6 +103,7 @@ const AuthNavigator = createStackNavigator({
 });
 
 const MainNavigator = createSwitchNavigator({
+  Start: StartComponent,
   Auth: AuthNavigator,
   Shop: ShopNavigator
 });
